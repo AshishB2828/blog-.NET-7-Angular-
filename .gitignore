@@ -334,5 +334,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/blog/UI/blog/.vscode
-/blog/UI/blog/.angular
+blog/UI/blog/.vscode
+blog/UI/blog/.angular
