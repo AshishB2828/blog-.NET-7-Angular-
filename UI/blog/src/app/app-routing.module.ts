@@ -8,34 +8,47 @@ import { AddBlogPostComponent } from './features/blog-post/add-blog-post/add-blo
 import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { authGuard } from './guards/auth.guard';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 const routes: Routes = [
   {
     path:"", component: HomeComponent
   },
   {
-    path:'admin/categories', component: CategoryListComponent
+    path: 'login',
+    component: LoginComponent
   },
   {
-    path:'admin/categories/add', component: AddCategoryComponent
+    path: 'register',
+    component: RegisterComponent
   },
   {
-    path:'admin/categories/edit/:id', component: EditCategoryComponent
+    path:'admin/categories', component: CategoryListComponent, canActivate: [authGuard]
   },
   {
-    path:'admin/blogpost/add', component: AddBlogPostComponent
+    path:'admin/categories/add', component: AddCategoryComponent, canActivate: [authGuard]
   },
   {
-    path:'admin/blogposts', component: BlogpostListComponent
+    path:'admin/categories/edit/:id', component: EditCategoryComponent, canActivate: [authGuard]
   },
   {
-    path:'admin/blogpost/edit/:id', component: EditBlogpostComponent
+    path:'admin/blogpost/add', component: AddBlogPostComponent, canActivate: [authGuard]
+  },
+  {
+    path:'admin/blogposts', component: BlogpostListComponent, canActivate: [authGuard]
+  },
+  {
+    path:'admin/blogpost/edit/:id', component: EditBlogpostComponent, canActivate: [authGuard]
   },
   {
     path: 'blog/:url',
     component: BlogDetailsComponent
   },
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

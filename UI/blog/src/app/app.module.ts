@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,9 @@ import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-b
 import { ImageSelectorComponent } from './shared/image-selector/image-selector.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegisterComponent } from './features/auth/register/register.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { BlogDetailsComponent } from './features/public/blog-details/blog-detail
     HomeComponent,
     BlogDetailsComponent,
 
+    LoginComponent,
+    RegisterComponent,
+
     ImageSelectorComponent
   ],
   imports: [
@@ -41,7 +47,13 @@ import { BlogDetailsComponent } from './features/public/blog-details/blog-detail
     HttpClientModule,
     MarkdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
