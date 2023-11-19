@@ -1,6 +1,7 @@
 ﻿using Blog.API.Models.Domain;
 using Blog.API.Models.DTO;
 using Blog.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Blog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class BlogPostsController : ControllerBase
     {
         private readonly IBlogPostRepository blogPostRepository;
@@ -22,6 +24,7 @@ namespace Blog.API.Controllers
 
         // POST: {apibaseurl}/api/blogposts
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
         {
             // Convert DTO to DOmain
@@ -108,6 +111,7 @@ namespace Blog.API.Controllers
         }
         [HttpGet]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
         {
             // Get the BlogPost from Repo
@@ -145,6 +149,7 @@ namespace Blog.API.Controllers
         // PUT: {apibaseurl}/api/blogposts/{id}
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -206,6 +211,7 @@ namespace Blog.API.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
         {
             var deletedBlogPost = await blogPostRepository.DeleteAsync(id);
