@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Observable} from 'rxjs';
+
 import { AddBlogPost } from '../../models/blogpost.model';
 import { BlogpostService } from 'src/app/service/blogpost.service';
 import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/service/category.service';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-add-blog-post',
@@ -19,12 +23,16 @@ export class AddBlogPostComponent implements OnInit, OnDestroy {
     featuredImageUrl: '',
     author: '',
     isVisible: true,
-    publishedDate: new Date()
+    publishedDate: new Date(),
+    categories:[]
   }
-
-  constructor(private blogPostService: BlogpostService, private router: Router) { }
+  categories$?: Observable<Category[]>;
+  constructor(private blogPostService: BlogpostService, 
+    private router: Router, 
+    private categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.categories$ = this.categoryService.getAllCategories();
   }
 
 

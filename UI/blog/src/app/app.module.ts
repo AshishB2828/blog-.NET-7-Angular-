@@ -11,6 +11,8 @@ import { AddCategoryComponent } from './features/category/add-category/add-categ
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 import { AddBlogPostComponent } from './features/blog-post/add-blog-post/add-blog-post.component';
 import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpost-list.component';
+import { MarkdownModule } from "ngx-markdown";
+import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpo
     EditCategoryComponent,
 
     AddBlogPostComponent,
-    BlogpostListComponent
+    BlogpostListComponent,
+    EditBlogpostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
