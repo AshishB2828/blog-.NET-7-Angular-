@@ -1,11 +1,12 @@
 ﻿using Blog.API.Models.Domain;
+using Blog.API.Models.DTO;
 
 namespace Blog.API.Repositories.Interface
 {
     public interface IBlogPostRepository
     {
         Task<BlogPost> CreateAsync(BlogPost blogPost);
-        Task<IEnumerable<BlogPost>> GetAllAsync();
+        Task<PagedResult<BlogPost>> GetAllAsync(BlogFilterAndPagination parms);
         Task<BlogPost?> GetByIdAsync(Guid id);
         Task<BlogPost?> DeleteAsync(Guid id);
         Task<BlogPost?> UpdateAsync(BlogPost blogPost);

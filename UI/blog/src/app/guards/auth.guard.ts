@@ -20,8 +20,8 @@ export const authGuard: CanActivateFn = (route, state) => {
 
     token = token.replace('Bearer ', '');
     const decodedToken:any = jwtDecode(token);
-    console.log(token);
-    console.log(decodedToken);
+    // console.log(token);
+    // console.log(decodedToken);
 
     //expired or not
     const expDate = decodedToken.exp * 1000;

@@ -1,5 +1,6 @@
 ﻿using Blog.API.Data;
 using Blog.API.Models.Domain;
+using Blog.API.Models.DTO;
 using Blog.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,10 +23,49 @@ namespace Blog.API.Repositories.Implementation
             return blogPost;
         }
 
-        public async Task<IEnumerable<BlogPost>> GetAllAsync()
+        public async Task<PagedResult<BlogPost>> GetAllAsync(BlogFilterAndPagination parms)
         {
-            return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
+            var blogQuery =   dbContext.BlogPosts.Include(x => x.Categories).AsQueryable();
+
+            if(!string.IsNullOrEmpty(parms.Title))
+            {
+                blogQuery = blogQuery.Where(x => x.Title.Contains(parms.Title));    
+            }
+
+            if (!string.IsNullOrEmpty(parms.Categories))
+            {
+                blogQuery = blogQuery.Where(x => x.Categories.Any(x => x.Name.ToUpper() == parms.Categories.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(parms.Visibility) && parms.Visibility.ToUpper() != "ALL")
+            {
+                if(parms.Visibility.ToUpper() == "VISIBLE")
+                {
+                    blogQuery = blogQuery.Where(x => x.IsVisible);
+
+                }
+                if (parms.Visibility.ToUpper() == "NOT_VISIBLE")
+                {
+                    blogQuery = blogQuery.Where(x => !x.IsVisible);
+
+                }
+            }
+            var numberOfBlogs = await blogQuery.CountAsync();
+
+            var posts =  await blogQuery.Skip((parms.PageNumber - 1) * parms.PageSize)
+                .Take(parms.PageSize).ToListAsync();
+
+            var result = new PagedResult<BlogPost>();
+
+            result.Data = posts;
+            result.TotalCount =numberOfBlogs;
+            result.NoOfPages =(int) Math.Ceiling((decimal)numberOfBlogs /(decimal) parms.PageSize);
+            result.IsPrevAvailable = parms.PageNumber != 1;
+            result.IsNextAvailable = parms.PageSize * parms.PageNumber < numberOfBlogs;
+
+            return result;
         }
+
+        
 
         public async Task<BlogPost?> GetByIdAsync(Guid id)
         {

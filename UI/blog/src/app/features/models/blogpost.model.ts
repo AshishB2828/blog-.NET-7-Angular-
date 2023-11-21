@@ -36,3 +36,10 @@ export interface AddBlogPost {
     isVisible: boolean;
     categories: string[];
   }
+
+  export interface BlogPostFilter {
+    title: string;
+    visibility: string;
+    categories:string;
+    pageNumber: number;
+  }

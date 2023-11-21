@@ -43,4 +43,19 @@ namespace Blog.API.Models.DTO
         public List<Guid> Categories { get; set; } = new List<Guid>();
 
     }
+
+    public class PagedResult<T>
+    {
+
+        public int TotalCount { get; set; }
+
+        public int NoOfPages { get; set; }
+
+        public bool IsNextAvailable { get; set; }
+        public bool IsPrevAvailable { get; set; }
+
+        public List<T> Data { get; set; }
+
+    }
+
 }

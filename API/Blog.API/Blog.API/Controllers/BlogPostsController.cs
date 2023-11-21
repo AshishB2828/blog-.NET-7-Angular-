@@ -79,15 +79,15 @@ namespace Blog.API.Controllers
 
         // GET: {apibaseurl}/api/blogposts
         [HttpGet]
-        public async Task<IActionResult> GetAllBlogPosts()
+        public async Task<IActionResult> GetAllBlogPosts([FromQuery] BlogFilterAndPagination? parms)
         {
-            var blogPosts = await blogPostRepository.GetAllAsync();
-
+            var data = await blogPostRepository.GetAllAsync(parms);
+            var blogPosts = data.Data;
             // Convert Domain model to DTO
-            var response = new List<BlogPostDto>();
+            var blogs = new List<BlogPostDto>();
             foreach (var blogPost in blogPosts)
             {
-                response.Add(new BlogPostDto
+                blogs.Add(new BlogPostDto
                 {
                     Id = blogPost.Id,
                     Author = blogPost.Author,
@@ -107,6 +107,12 @@ namespace Blog.API.Controllers
                 });
             }
 
+            var response = new PagedResult<BlogPostDto>();
+            response.Data = blogs;
+            response.NoOfPages = data.NoOfPages;
+            response.TotalCount = data.TotalCount;
+            response.IsNextAvailable = data.IsNextAvailable;
+            response.IsPrevAvailable = data.IsPrevAvailable;
             return Ok(response);
         }
         [HttpGet]
