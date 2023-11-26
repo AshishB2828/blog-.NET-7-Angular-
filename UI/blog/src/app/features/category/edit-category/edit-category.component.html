@@ -4,7 +4,7 @@
 
   <ng-container *ngIf="category;else notFound">
 
-    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <form #form="ngForm" (ngSubmit)="form.valid && onFormSubmit()">
       <div class="mt-2">
         <div class="mt-3">
           <label class="form-label" for="categoryId">Category Id</label>
@@ -21,7 +21,13 @@
           id="categoryName"
           class="form-control"
           name="categoryName"
+          #categoryName = "ngModel"
+          required
           [(ngModel)]="category.name">
+
+          <span class="text-danger" *ngIf="(categoryName.touched || form.submitted) && categoryName.errors?.['required']">
+            Category Name Required.
+           </span>
         </div>
 
         <div class="mt-3">
@@ -30,7 +36,13 @@
           id="categoryUrlHandle"
           class="form-control"
           name="categoryUrlHandle"
+          #categoryUrlHandle="ngModel"
+          required
           [(ngModel)]="category.urlHandle">
+
+          <span class="text-danger" *ngIf="(categoryUrlHandle.touched || form.submitted) && categoryUrlHandle.errors?.['required']">
+            CategoryUrlHandle  Required.
+           </span>
         </div>
 
         <div class="mt-3 d-flex">

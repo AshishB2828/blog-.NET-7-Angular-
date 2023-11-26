@@ -88,7 +88,7 @@ namespace Blog.API.Controllers
                     {
                         foreach (var error in identityResult.Errors)
                         {
-                            ModelState.AddModelError("", error.Description);
+                            ModelState.AddModelError(error.Code, error.Description);
                         }
                     }
                 }
@@ -99,7 +99,7 @@ namespace Blog.API.Controllers
                 {
                     foreach (var error in identityResult.Errors)
                     {
-                        ModelState.AddModelError("", error.Description);
+                        ModelState.AddModelError(error.Code, error.Description);
                     }
                 }
             }

@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="mt-3">Add Blog</h1>
 
-  <form #ngForm="ngForm" (ngSubmit)="onFormSubmit()">
+  <form #form="ngForm" (ngSubmit)="form.valid && onFormSubmit()">
     <div class="mt-2 mb-5">
       <div class="mt-3">
         <label for="title" class="form-label">Title</label>
@@ -9,7 +9,13 @@
         id="title"
         name="title"
         class="form-control"
-        [(ngModel)]="model.title">
+        [(ngModel)]="model.title"
+        required
+        #title = "ngModel"
+        >
+        <span class="text-danger" *ngIf="(title.touched || form.submitted) && title.errors?.['required']">
+            Title Required.
+        </span>
       </div>
 
       <div class="mt-3">
@@ -18,7 +24,12 @@
         id="urlHandle"
         name="urlHandle"
         class="form-control"
-        [(ngModel)]="model.urlHandle">
+        #urlHandle="ngModel"
+        required
+        [(ngModel)]="model.urlHandle"/>
+        <span class="text-danger" *ngIf="(urlHandle.touched || form.submitted) && urlHandle.errors?.['required']">
+          URL Handle Required.
+      </span>
       </div>
 
       <div class="mt-3">
@@ -27,7 +38,12 @@
         id="shortDescription"
         name="shortDescription"
         class="form-control"
+        #shortDescription = "ngModel"
+        required
         [(ngModel)]="model.shortDescription">
+        <span class="text-danger" *ngIf="(shortDescription.touched || form.submitted) && shortDescription.errors?.['required']">
+          Short Description Required.
+        </span>
       </div>
 
       <div class="mt-3">
@@ -39,8 +55,14 @@
             name="content"
             class="form-control"
             style="height: 350px;max-height: 350px;"
-            [(ngModel)]="model.content">
+            [(ngModel)]="model.content" 
+            required
+            #content = "ngModel"
+            >
             </textarea>
+            <span class="text-danger" *ngIf="(content.touched || form.submitted) && content.errors?.['required']">
+             Content Required.
+            </span>
           </div>
 
           <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
@@ -62,7 +84,13 @@
         id="featuredImageUrl"
         name="featuredImageUrl"
         class="form-control"
+        #image = "ngModel"
+        required
         [(ngModel)]="model.featuredImageUrl">
+        <span class="text-danger" *ngIf="(image.touched || form.submitted) && image.errors?.['required']">
+          Image Required.
+         </span>
+        
       </div>
 
       <div class="mt-3">
@@ -82,7 +110,13 @@
         id="author"
         name="author"
         class="form-control"
-        [(ngModel)]="model.author">
+        [(ngModel)]="model.author"
+        #author = "ngModel"
+        required
+        >
+        <span class="text-danger" *ngIf="(author.touched || form.submitted) && author.errors?.['required']">
+          Author Required.
+         </span>
       </div>
 
       <div class="form-check mt-3">
@@ -97,10 +131,13 @@
         <label for="categories" class="form-label">Categories</label>
 
         <ng-container *ngIf="categories$ | async as categories">
-          <select class="form-control" [(ngModel)]="model.categories" name="categories"
+          <select class="form-control"  [(ngModel)]="model.categories" name="categories" required
           id="categories" multiple>
           <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
         </select>
+        <span class="text-danger" *ngIf="(form.submitted) && !model.categories.length">
+          Category Required.
+         </span>
         </ng-container>
 
       </div>

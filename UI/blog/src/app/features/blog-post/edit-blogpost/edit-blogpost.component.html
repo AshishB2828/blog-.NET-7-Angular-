@@ -3,22 +3,35 @@
 
 
   <ng-container *ngIf="model">
-    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <form #form="ngForm" (ngSubmit)="form.valid && onFormSubmit()">
       <div class="mt-2 mb-5">
         <div class="mt-3">
           <label for="title" class="form-label">Title</label>
-          <input type="text" id="title" name="title" class="form-control" [(ngModel)]="model.title">
+          <input type="text" id="title" name="title" class="form-control" 
+          #title = "ngModel"
+          required
+          [(ngModel)]="model.title">
+          <span class="text-danger" *ngIf="(title.touched || form.submitted) && title.errors?.['required']">
+            Title Required.
+          </span>
+
         </div>
 
         <div class="mt-3">
           <label for="urlHandle" class="form-label">Url Handle</label>
-          <input type="text" id="urlHandle" name="urlHandle" class="form-control" [(ngModel)]="model.urlHandle">
+          <input #urlHandle="ngModel" required  type="text" id="urlHandle" name="urlHandle" class="form-control" [(ngModel)]="model.urlHandle">
+          <span class="text-danger" *ngIf="(urlHandle.touched || form.submitted) && urlHandle.errors?.['required']">
+            URL Handle Required.
+          </span>
         </div>
 
         <div class="mt-3">
           <label for="shortDescription" class="form-label">Short Description</label>
-          <input type="text" id="shortDescription" name="shortDescription" class="form-control"
+          <input type="text" #shortDescription="ngModel" required id="shortDescription" name="shortDescription" class="form-control"
             [(ngModel)]="model.shortDescription">
+            <span class="text-danger" *ngIf="(shortDescription.touched || form.submitted) && shortDescription.errors?.['required']">
+              Short Description Required.
+            </span>
         </div>
 
         <div class="mt-3">
@@ -26,9 +39,13 @@
 
           <div class="d-flex flex-row">
             <div class="col-6 p-2">
-              <textarea id="content" name="content" class="form-control" style="height: 350px;max-height: 350px;"
+              <textarea id="content" name="content" #content="ngModel" required class="form-control" style="height: 350px;max-height: 350px;"
                 [(ngModel)]="model.content">
             </textarea>
+
+            <span class="text-danger" *ngIf="(content.touched || form.submitted) && content.errors?.['required']">
+              Content Required.
+             </span>
             </div>
 
             <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
@@ -51,8 +68,12 @@
             </div>
           </ng-container>
 
-          <input type="text" id="featuredImageUrl" name="featuredImageUrl" class="form-control"
+          <input type="text" id="featuredImageUrl" name="featuredImageUrl" #image="ngModel" class="form-control" required
             [(ngModel)]="model.featuredImageUrl">
+
+            <span class="text-danger" *ngIf="(image.touched || form.submitted) && image.errors?.['required']">
+              Image Required.
+             </span>
         </div>
 
         <div class="mt-3">
@@ -64,7 +85,10 @@
 
         <div class="mt-3">
           <label for="author" class="form-label">Author</label>
-          <input type="text" id="author" name="author" class="form-control" [(ngModel)]="model.author">
+          <input #author="ngModel" type="text" id="author" name="author" required class="form-control" [(ngModel)]="model.author">
+          <span class="text-danger" *ngIf="(image.touched || form.submitted) && image.errors?.['required']">
+            Image Required.
+           </span>
         </div>
 
         <div class="form-check mt-3">
@@ -81,6 +105,9 @@
             <select class="form-control" [(ngModel)]="selectedCategories" name="categories" id="categories" multiple>
               <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
             </select>
+            <span class="text-danger" *ngIf="(form.submitted) && !model.categories.length">
+              Category Required.
+             </span>
           </ng-container>
 
         </div>

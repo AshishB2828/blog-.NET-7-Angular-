@@ -14,7 +14,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent {
 
   model: LoginRequest;
-
+  isAnyServerError: boolean = false;
+  errMsgs: any[] = [];
   constructor(private authService: AuthService,
     private cookieService: CookieService,
     private router: Router) {
@@ -37,10 +38,24 @@ export class LoginComponent {
           email: response.email,
           roles: response.roles
         });
-
+        this.errMsgs = [];
         // Redirect back to Home
         this.router.navigateByUrl('/');
 
+      },
+      error: (err) =>{
+        this.isAnyServerError = true;
+        const errors = err?.error?.errors;
+       //console.log(errors)
+         this.errMsgs = [];
+        if(errors){
+          for (let [key, value] of Object.entries(errors)) {
+            this.errMsgs.push(value);
+          }
+        }
+        if(this.errMsgs.length == 0){
+          this.errMsgs.push("Something went wrong!, Please try again later.")
+        }
       }
     });
   }
