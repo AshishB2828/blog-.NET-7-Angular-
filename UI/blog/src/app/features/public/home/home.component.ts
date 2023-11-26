@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   blogs?:  BlogPost[];
   blogPostSubscription?: Subscription;
   filter: BlogPostFilter = {
-    categories:"", pageNumber:1, title:"", visibility: "ALL"
+    categories:"", pageNumber:1, title:"", visibility: "VISIBLE"
   }
   totlaPageAvailable: number = 1;
   isNext: boolean = false;
