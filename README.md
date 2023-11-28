@@ -45,13 +45,6 @@ System.IdentityModel.Tokens.Jwt version = 7.0.3
 
 Then start the project.
 
-#
-# Technologies and frameworks used:
-- ASP.NET 7
-- Angular 16.2.1
-- SQL Server 2019
-
-#
 
 
 
