@@ -1,6 +1,6 @@
-﻿using Blog.API.Models.Domain;
-using Blog.API.Models.DTO;
-using Blog.API.Repositories.Interface;
+﻿using Blog.API.Repositories.Interface;
+using Blog.Models.Models.Domain;
+using Blog.Models.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

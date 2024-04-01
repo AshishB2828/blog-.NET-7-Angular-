@@ -1,4 +1,4 @@
-﻿namespace Blog.API.Models.DTO
+﻿namespace Blog.Models.Models.DTO
 {
     public class LoginRequestDto
     {

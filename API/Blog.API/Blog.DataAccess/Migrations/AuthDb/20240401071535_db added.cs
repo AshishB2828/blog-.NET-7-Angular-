@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Blog.API.Migrations.AuthDb
+namespace Blog.DataAccess.Migrations.AuthDb
 {
     /// <inheritdoc />
-    public partial class addauthenticationandauthserverside : Migration
+    public partial class dbadded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -170,7 +170,7 @@ namespace Blog.API.Migrations.AuthDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "edc267ec-d43c-4e3b-8108-a1a1f819906d", 0, "8d1a7f9e-2a34-45c0-84fb-557846bb6fef", "admin1@admin.com", false, false, null, "ADMIN1@ADMIN.COM", "ADMIN1.COM", "AQAAAAIAAYagAAAAECfBj8HUL02QedkIe+7n+tsI8ShgkAr6RlRiujZgFmfZRb2dla5Gsyzvf2aiW4uAxw==", null, false, "170af48a-c371-46d4-b253-b891b05b123c", false, "admin1" });
+                values: new object[] { "edc267ec-d43c-4e3b-8108-a1a1f819906d", 0, "895c0c1d-0007-4b31-998e-6c42a6d6f828", "admin1@admin.com", false, false, null, "ADMIN1@ADMIN.COM", "ADMIN1.COM", "AQAAAAIAAYagAAAAEMMiyLUsJ9K7aNOCV3fvTpfNl6Hg/EQNdvToJzY7iXUkmAKlRT6y8poTmRxLkGMGoA==", null, false, "c7fe5c22-c12d-4f5e-a374-c0472d208ea3", false, "admin1" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -1,5 +1,5 @@
-﻿using Blog.API.Models.Domain;
-using Blog.API.Models.DTO;
+﻿using Blog.Models.Models.Domain;
+using Blog.Models.Models.DTO;
 
 namespace Blog.API.Repositories.Interface
 {

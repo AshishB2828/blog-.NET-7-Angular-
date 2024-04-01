@@ -1,6 +1,6 @@
 ﻿using Blog.API.Data;
-using Blog.API.Models.Domain;
 using Blog.API.Repositories.Interface;
+using Blog.Models.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.API.Repositories.Implementation
